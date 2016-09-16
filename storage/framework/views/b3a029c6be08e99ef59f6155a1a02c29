@@ -1,0 +1,108 @@
+<?php $__env->startSection('content'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Leave | 
+            <small>Create New </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?php echo e(BASE_URL); ?>/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li class="active">Leave Management </li>
+            <li class="active">Create New </li>
+        </ol>
+    </section>
+
+    <?php if((Session::has('flash_message')) && (Session::get('flash_message'))=="success"): ?>
+        <div class="info-msg">
+            <div class="alert alert-success">
+                <strong>Succes!</strong> <span class="msg">form has been succesfully submitted.</span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if((Session::has('flash_message')) && (Session::get('flash_message'))=="error"): ?>
+        <div class="info-msg" >
+            <div class="alert alert-danger">
+                <strong>Error!</strong> <span class="msg">Invalid input.</span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+		<section class="content clearfix">
+	    
+
+	        <div class="col-md-12">
+	           
+	            <?php echo Form::open( array('url'=>'admin/leaves/', 'id'=>'form-create-leave','method'=>'post') ); ?>
+
+	            <div class="box box-primary">
+	                <div class="box-header with-border">
+	                    <h3 class="box-title">Leave/Absent Form</h3>
+	                </div>
+	                <div class="box-body">
+	                    <div class="row">
+
+	                        <div class="form-group  col-md-6">
+							 	<label>Name:</label><span class="text-danger">*</span>
+								<select class="form-control" name="firstname">
+									<?php foreach($employees as $emp): ?>
+										<option value="<?php echo e($emp->id); ?>"><?php echo e($emp->firstname.' '.$emp->lastname); ?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label>Number of days:</label>
+	                            <input type="text" class="form-control" name="no_of_days" value="" placeholder="Total Number of Days" >
+	                        </div>
+	                         
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="form-group col-md-6">
+	                            <label>Start Date Date:</label><span class="text-danger"> *</span>
+	                            <input type="date" class="form-control" name="start_date" value=""  >
+	                        </div>
+
+	                        <div class="form-group col-md-6">
+	                            <label>End Date:</label><span class="text-danger"> *</span>
+	                            <input type="date" class="form-control" name="end_date" value="" >
+	                        </div>
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="form-group col-md-12">
+	                            <label>Reason of Absence/Leave:</label><span class="text-danger"> *</span>
+	                            <textarea class="form-control" style="min-height: 80px" name="reasons" placeholder="Minimum of 50 characters"></textarea>
+	                        </div>
+	                    </div>
+
+	                     <div class="row">
+	                        <div class="form-group col-md-12">
+	                            <label>Note:</label>
+	                            <textarea class="form-control" style="min-height: 80px" name="note_for_absent"></textarea>
+	                        </div>
+	                    </div>
+
+	                </div>
+
+	                <div class="clearfix clear"></div>
+
+	                <div class="info-msg" style="display: none">
+	                    <div class="alert alert-danger">
+	                        <strong>Error!</strong> <span class="msg"></span>
+	                    </div>
+	                    <div class="alert alert-success">
+	                        <strong>Success!</strong> <span class="msg"></span>
+	                    </div>
+	                </div>
+
+	                <div class="action">
+	                    <input type="submit" class="btn btn-primary submit pull-right" value="Submit" data-svalue="submitting leave form..." />
+	                </div>
+	            </div>
+	        </form>
+	        </div>
+
+	    </section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

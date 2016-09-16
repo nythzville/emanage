@@ -1,0 +1,78 @@
+<div class="col-md-9">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header ui-sortable-handle " style="cursor: move;">
+              <i class="ion ion-clipboard"></i>
+              <h3 class="box-title"><?php echo e($is_weekly ? 'Weekly': ''); ?> Attendance Report</h3>
+              <h3 class="box-title"><?php echo e($is_weekly ? '' : 'From: '.date('F d, Y',strtotime($week_start))); ?></h3> 
+              <h3 class="box-title"><?php echo e($is_weekly ? '' : 'To: '  .date('F d, Y',strtotime($week_end))); ?> </h3>
+
+              
+
+            </div><!-- /.box-header -->
+
+            <div class="box-body">
+              <ul class="todo-list ui-sortable">
+                <?php 
+                      $total_lates = 0; 
+                      $total_undertime = 0; 
+                      $total_early = 0;
+                      $total_overtime = 0; 
+                    ?>
+                    <?php foreach( $weekly_attendance as $attendance ): ?>
+                        <li>
+                          <!-- drag handle -->
+                          <span class="handle ui-sortable-handle">
+                            <i class="fa fa-ellipsis-v"></i>
+                            <i class="fa fa-ellipsis-v"></i>
+                          </span>
+                          <!-- todo text -->
+                          <span class="text"><?php echo e(ucfirst($attendance->day)); ?></span>
+                          <!-- Check if EARLY -->
+                          <?php if( $attendance->early ): ?>
+                            <?php $total_early += $attendance->early; ?>
+                            <small class="label label-success">EARLY: <?php echo e(seconds_to_words( $attendance->early )); ?></small>
+                          <?php endif; ?>
+                          <!-- Check if ABSENT -->
+                          <?php if( $attendance->absent ): ?>
+                            <small class="label label-danger">ABSENT</small>
+                          <?php endif; ?>
+                          <!-- Check if LATE -->
+                          <?php if( $attendance->lates ): ?>
+                            <?php $total_lates += $attendance->lates; ?>
+                            <small class="label label-warning">LATE: <?php echo e(seconds_to_words( $attendance->lates )); ?></small>
+                          <?php endif; ?>
+                          <!-- Check if UNDERTIME -->
+                          <?php if( $attendance->undertime ): ?>
+                            <?php $total_undertime += $attendance->undertime; ?>
+                            <small class="label label-warning">UNDERTIME: <?php echo e(seconds_to_words( $attendance->undertime )); ?></small>
+                          <?php endif; ?>
+                          <?php if( $attendance->overtime ): ?>
+                            <?php $total_overtime += $attendance->overtime; ?>
+                            <small class="label label-success">OVERTIME: <?php echo e(seconds_to_words( $attendance->overtime )); ?></small>
+                          <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+               
+              </ul>
+            </div><!-- /.box-body -->
+            
+            <div class="box-footer clearfix no-border">
+                <div class="box-footer clearfix no-border">
+                    <div class="col-xs-3"><span class="bold">Total Early :</span> 
+                        <div><?php echo e(seconds_to_words( $total_early )); ?></div>
+                    </div>
+                    <div class="col-xs-3"><span class="bold">Total Lates :</span>
+                        <div><?php echo e(seconds_to_words( $total_lates )); ?></div>
+                    </div>
+                    <div class="col-xs-3"><span class="bold">Total Undertime :</span> 
+                        <div><?php echo e(seconds_to_words( $total_undertime )); ?></div>
+                    </div>
+                    <div class="col-xs-3"><span class="bold">Total Overtime :</span> 
+                        <div><?php echo e(seconds_to_words( $total_overtime )); ?></div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div> 
+</div>

@@ -1,0 +1,293 @@
+@extends('layouts.admin-template')
+
+@section('content')
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Employee Form</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-2 col-sm-2 col-xs-6 form-group pull-right top_search">
+                     <button type="button" class="btn btn-success" onclick="$('#employee-submit').click()">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#birthday').daterangepicker({
+                    singleDatePicker: true,
+                    calender_style: "picker_4"
+                }, function (start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                });
+
+                $('#start_date').daterangepicker({
+                    singleDatePicker: true,
+                    calender_style: "picker_4"
+                }, function (start, end, label) {
+                    console.log(start.toISOString(), end.toISOString(), label);
+                });
+            });
+        </script>
+        <div class="row">
+            <div id="alert-container" >
+                
+            </div>
+        </div>
+
+        <div class="row">
+            @if($action=='create')
+
+                {!! Form::open( array('action' => 'AdminEmployeeController@store', 'class'=>'form-horizontal form-label-left input_mask', 'id'=>'employee-form', 'method'=>'post') ) !!}
+
+            @endif
+                <div class="col-md-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Account<small>Details</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                           
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" name="identification" class="form-control has-feedback-left" placeholder="MAVE-0000" required="">
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                <input type="text" name="email" class="form-control has-feedback-left" placeholder="Email" required="">
+                                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Acount Type:</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select name="account_type" class="form-control" required="">
+                                        <option value="normal">Normal</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="hr">Hr</option>
+                                        <option value="owner">Owner</option>
+                            
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status:</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select name="status" class="form-control" required="">
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="SUSPENDED">SUSPENDED</option>
+                                        <option value="UNCONFIRMED">UNCONFIRMED</option>
+                                        <option value="DELETED">DELETED</option>
+                            
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="password" name="password" class="form-control" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Re-type Password</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="password" name="confirm_password" class="form-control" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Personal<small>information</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                           
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" name="firstname" class="form-control has-feedback-left" placeholder="First Name" required="">
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" name="lastname" class="form-control" placeholder="Last Name" required="">
+                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" name="middlename" class="form-control has-feedback-left" placeholder="Middle Name" required="">
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" id="birthday" name="birthdate" class="form-control" placeholder="Birth Date" required="">
+                                <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" name="phone_no" class="form-control \ has-feedback-left" placeholder="Phone" required="">
+                                <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <input type="text" name="mobile_no" class="form-control" placeholder="Mobile" required="">
+                                <span class="fa fa-mobile form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div id="gender" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                                        </label>
+                                        <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                            <input type="radio" name="gender" value="female" checked=""> Female
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" name="address" class="form-control" placeholder="address" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Employment<small>information</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br />
+                            
+                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date:</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input name="start_date" id="start_date" type="text" class="form-control" placeholder="mm/dd/yyyy" required="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Department</label>
+                               
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select name="department_id" class="form-control" required="">
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Job Title</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input name="job_title" type="text" class="form-control" placeholder="Job Title" required="">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Job Description
+                                </label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <textarea name="job_description" class="form-control" rows="3" placeholder='Job Description' required=""></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-sm-3 col-xs-12 control-label">Employment
+                                    <br>
+                                    <small class="text-navy">Status</small>
+                                </label>
+
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="flat" value="employed" checked name="employment_status" required=""> Employed
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="flat" value="resigned" name="employment_status" required=""> Resigned
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="flat" value="AWOL" name="employment_status" required=""> AWOL
+                                        </label>
+                                    </div>
+                                </div>
+                            
+                                <label class="col-md-2 col-sm-2 col-xs-12 control-label">
+                                    <br>
+                                    <small class="text-navy">Type</small>
+                                </label>
+
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="flat" value="fulltime" checked name="employment_type"> Full Time
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="flat" value="parttime" name="employment_type"> Part Time
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                    <button id="employee-submit" type="submit" class="btn btn-success" style="display:none;">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {!! Form::close() !!}
+
+        </div>
+
+    </div>
+    <!-- /page content -->
+
+@endsection

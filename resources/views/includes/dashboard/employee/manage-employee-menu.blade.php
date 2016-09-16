@@ -1,0 +1,38 @@
+<div class="col-md-3">
+  <div class="box box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title">My Profile</h3>
+    </div>
+    <div class="box-body no-padding">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="{{ $what == 'personal_information' ? 'active' : ''}}"><a href="/employee/personal_information"><i class="fa fa-info"></i> Personal Information</a></li>
+        <li class="{{ $what == 'account_details' ? 'active' : ''}}"><a href="/employee/account_details"><i class="fa fa-inbox"></i> Acount Details</a></li>
+        <li class="{{ $what == 'work_details' ? 'active' : ''}}"><a href="/employee/work_details"><i class="fa fa-suitcase"></i> Work Details</a></li>
+        <li class="{{ $what == 'profile_image' ? 'active' : ''}}"><a href="/employee/profile_image"><i class="fa fa-file-image-o"></i> Profile Image</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="box box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title">Attendance</h3>
+    </div>
+    <div class="box-body no-padding">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="{{ $what == 'attendance' ? 'active' : ''}}"><a href="/employee/attendance"><i class="fa fa-clock-o"></i> Attendance</a></li>
+        <li class="{{ $what == 'attendance_reference' ? 'active' : ''}}"><a href="/employee/attendance_reference"><i class="fa fa-list"></i> Attendance Reference</a></li>
+         <li class="{{ $what == 'attendance_report' ? 'active' : ''}}"><a href="/employee/attendance_report"><i class="fa fa-calendar"></i> Review Attendance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="box box-solid">
+    <div class="box-header with-border">
+      <h3 class="box-title">Leave Management</h3>
+    </div>
+    <div class="box-body no-padding">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="{{ $what == 'leave_application' ? 'active' : ''}}"><a href="/leaves/leave_application"><i class="fa fa-circle-o text-red"></i> Leave Applications</a></li>
+        <li class="{{ $what == 'create_leave' ? 'active' : ''}}"><a href="/leaves/create_leave"><i class="fa fa-circle-o text-red"></i> Apply Leave</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

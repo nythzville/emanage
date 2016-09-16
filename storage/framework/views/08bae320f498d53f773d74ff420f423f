@@ -1,0 +1,6 @@
+<section class="content clearfix">
+	<?php echo $__env->make('includes.dashboard.employee.manage-employee-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	hello
+</section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

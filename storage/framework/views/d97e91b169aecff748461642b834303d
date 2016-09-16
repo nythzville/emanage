@@ -1,0 +1,83 @@
+<?php $__env->startSection('content'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/employee/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?></li>
+            <li class="active">Profile Picture</li>
+        </ol>
+    </section>
+
+    <?php if(Session::has('flash_notice')): ?>
+        <div class="info-msg">
+            <div class="alert alert-success">
+                <strong>Succes!</strong> <span class="msg"><?php echo e(Session::get('flash_notice')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if(Session::has('flash_error')): ?>
+        <div class="info-msg" >
+            <div class="alert alert-danger">
+                <strong>Error!</strong> <span class="msg"><?php echo e(Session::get('flash_error')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+<?php echo Form::open( array('url'=>'employee/'.$emp->id.'/update/profile_image','class'=>'form-update-profile-image', 'method'=>'post', 'files'=>true ) ); ?>
+
+    <section class="content clearfix">
+
+        <?php echo $__env->make('includes.dashboard.employee.manage-employee-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Profile Photo</h3>
+                </div>
+                <div class="box-body">
+
+                    
+                    <div class="row">
+                        <div class="form-group col-lg-8">
+                            <div>
+                                <?php if( $emp->photo ): ?>
+                                    <?php $emp_photo = str_replace('.jpg', '_200.jpg', $emp->photo) ?>
+                                    <?php $emp_photo = str_replace('.png', '_200.png', $emp_photo) ?>
+                                    <img src="/images/employees/profile_photo/<?php echo e($emp_photo); ?>?<?php echo e(rand(0, 500)); ?>" class="img-responsive" />
+                                <?php else: ?>
+                                    <img src="/images/employees/profile_photo/<?php echo e($emp->gender == 'male' ? 'male-default-photo-200.jpg' : 'female-default-photo-200.jpg'); ?>"  class="img-responsive" />
+                                <?php endif; ?>
+                            </div>
+                            <br />
+                            <?php echo Form::file('profile_photo'); ?>
+
+                        </div>
+                        <div class="action" style="padding-top: 0px">
+                            <input type="submit" class="btn btn-primary submit pull-right" value="Upload Photo" data-svalue="Upload Photo" />
+                        </div>
+                    </div>
+
+                </div><!-- /.box-body -->
+
+
+                <div class="clearfix clear"></div>
+
+                <div class="info-msg" style="display: none">
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> <span class="msg"></span>
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> <span class="msg"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+    </section>
+    </form>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

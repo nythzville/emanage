@@ -1,0 +1,17 @@
+
+<?php echo $__env->make('includes.template.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+
+<?php echo $__env->make('includes.template.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  
+            
+
+<?php echo $__env->make('includes.template.navigation', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>            
+
+
+<!-- Content -->
+<?php echo $__env->yieldContent('content'); ?>
+<!-- / Content -->
+
+
+<!-- Include Footer -->
+<?php echo $__env->make('includes.template.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

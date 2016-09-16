@@ -1,0 +1,15 @@
+<?php if(Session::has('flash_notice')): ?>
+    <div class="info-msg">
+        <div class="alert alert-success">
+            <strong>Succes!</strong> <span class="msg"><?php echo e(Session::get('flash_notice')); ?></span>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if(Session::has('flash_error')): ?>
+    <div class="info-msg" >
+        <div class="alert alert-danger">
+            <strong>Error!</strong> <span class="msg"><?php echo e(Session::get('flash_error')); ?></span>
+        </div>
+    </div>
+<?php endif; ?>

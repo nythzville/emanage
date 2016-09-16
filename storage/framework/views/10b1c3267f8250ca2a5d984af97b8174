@@ -1,0 +1,95 @@
+<?php $__env->startSection('content'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Employee | 
+            <small><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="<?php echo e(BASE_URL); ?>/dashboard"><i class="fa fa-home"></i> Employee</a></li>
+            <li><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </li>
+            <li class="active">Account Details</li>
+        </ol>
+    </section>
+
+    <?php echo $__env->make('includes.dashboard.flash-message', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    
+
+
+    <?php echo Form::open( array('url'=>'admin/employee/'.$emp->id.'/update/account_details', 'id'=>'form-update-employee-account-details', 'method'=>'post') ); ?>
+
+    <section class="content clearfix">
+
+    	<?php echo $__env->make('includes.dashboard.manage-employee-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    	
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Acount Details</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label>Email:</label><span class="text-danger">*</span>
+                            <input type="text" class="form-control" name="email" value="<?php echo e($emp->email); ?>">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Account Type:</label><span class="text-danger">*</span>
+                            <select class="form-control" name="account_type">
+                                <option value="normal" <?php echo e($emp->account_type == 'normal' ? 'selected="selected"': ''); ?>>Employee</option>
+                                <option value="admin" <?php echo e($emp->account_type == 'admin' ? 'selected="selected"': ''); ?>>Admin</option>
+                                <option value="hr" <?php echo e($emp->account_type == 'hr' ? 'selected="selected"': ''); ?>>Hr</option>
+                                <option value="owner" <?php echo e($emp->account_type == 'owner' ? 'selected="selected"': ''); ?>>Owner</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>ID No.:</label><span class="text-danger">*</span>
+                            <input type="text" class="form-control" name="identification" value="<?php echo e($emp->identification); ?>">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Status: </label><span class="text-danger">*</span>
+                            <select class="form-control" name="status">
+                                <option  value="ACTIVE" <?php echo e($emp->status == 'ACTIVE' ? 'selected="selected"': ''); ?>>ACTIVE</option>
+                                <option  value="SUSPENDED" <?php echo e($emp->status == 'SUSPENDED' ? 'selected="selected"': ''); ?>>SUSPENDED</option>
+                                <option  value="UNCONFIRMED" <?php echo e($emp->status == 'UNCONFIRMED' ? 'selected="selected"': ''); ?>>UNCONFIRMED</option>
+                                <option  value="DELETED" <?php echo e($emp->status == 'DELETED' ? 'selected="selected"': ''); ?>>DELETED</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>Password:</label><span class="text-danger">*</span>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label>Confirm Password:</label><span class="text-danger">*</span>
+                            <input type="password" class="form-control" name="confirm_password">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="clearfix clear"></div>
+
+                <div class="info-msg" style="display: none">
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> <span class="msg"></span>
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> <span class="msg"></span>
+                    </div>
+                </div>
+                
+                <div class="action">
+                    <input type="submit" class="btn btn-primary submit pull-right" value="Update Account Details" data-svalue="Updating account details..." />
+                </div>
+            </div>
+        </div>
+
+    </section>
+    </form>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

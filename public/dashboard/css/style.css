@@ -1,0 +1,410 @@
+@charset "utf-8";
+body{
+
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| GENERAL STYLES
+|--------------------------------------------------------------------------
+|
+*/
+p {
+	line-height: 120%;
+}
+.alert {
+    margin-top: 15px;
+    margin-left: 0;
+}
+
+.font-normal {
+  font-weight: normal !important;
+}
+
+
+.login-logout-btn {
+  padding: 21px 110px;
+  font-size: 30px;
+}
+
+.bold { font-weight: bold;}
+/*
+|--------------------------------------------------------------------------
+| FORMS:: SIGNIN AND SIGNUP FORM
+|--------------------------------------------------------------------------
+|
+*/
+.form-login,
+.form-signup {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-login .form-login-heading,
+.form-login .checkbox {
+  margin-bottom: 10px;
+}
+.form-login .checkbox {
+  font-weight: normal;
+}
+.form-login .form-control,
+.form-signup .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: -1px;
+}
+.form-login .form-control:focus {
+  z-index: 2;
+}
+.form-login input[type="email"],
+.form-signup input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-login input[type="password"]{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.form-signup .submit,
+.form-signup .foot {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+
+.verified {
+  padding: 10px 15px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  font-weight: bold;
+}
+
+.unverified {
+  padding: 10px 15px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  font-weight: bold;
+}
+
+
+.new-domain {
+  background-color: #F5EAE4;
+}
+
+.domains-list .even {
+  background-color: #f9f9f9;
+}
+
+
+.seal-sizes {
+  display: none;
+}
+
+
+form .action {
+  padding: 50px;
+  margin-bottom: 100px
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| FORMS:: SUBSCRIPTION FORM
+|--------------------------------------------------------------------------
+|
+*/
+.panel
+{
+    text-align: center;
+}
+.panel:hover { box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4), 0 1px 5px rgba(130, 130, 130, 0.35); }
+.panel-body
+{
+    padding: 0px;
+    text-align: center;
+}
+
+.the-price
+{
+    background-color: rgba(220,220,220,.17);
+    box-shadow: 0 1px 0 #dcdcdc, inset 0 1px 0 #fff;
+    padding: 20px;
+    margin: 0;
+}
+
+.the-price h1
+{
+    line-height: 1em;
+    padding: 0;
+    margin: 0;
+}
+
+.subscript
+{
+    font-size: 25px;
+}
+
+/* CSS-only ribbon styles    */
+.cnrflash
+{
+    /*Position correctly within container*/
+    position: absolute;
+    top: -9px;
+    right: 4px;
+    z-index: 1; /*Set overflow to hidden, to mask inner square*/
+    overflow: hidden; /*Set size and add subtle rounding      to soften edges*/
+    width: 100px;
+    height: 100px;
+    border-radius: 3px 5px 3px 0;
+}
+.cnrflash-inner
+{
+    /*Set position, make larger then      container and rotate 45 degrees*/
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 145px;
+    height: 145px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -o-transform: rotate(45deg); /* Opera */
+    -moz-transform: rotate(45deg); /* Firefox */
+    -webkit-transform: rotate(45deg); /* Safari and Chrome */
+    -webkit-transform-origin: 100% 100%; /*Purely decorative effects to add texture and stuff*/ /* Safari and Chrome */
+    -ms-transform-origin: 100% 100%;  /* IE 9 */
+    -o-transform-origin: 100% 100%; /* Opera */
+    -moz-transform-origin: 100% 100%; /* Firefox */
+    background-image: linear-gradient(90deg, transparent 50%, rgba(255,255,255,.1) 50%), linear-gradient(0deg, transparent 0%, rgba(1,1,1,.2) 50%);
+    background-size: 4px,auto, auto,auto;
+    background-color: #aa0101;
+    box-shadow: 0 3px 3px 0 rgba(1,1,1,.5), 0 1px 0 0 rgba(1,1,1,.5), inset 0 -1px 8px 0 rgba(255,255,255,.3), inset 0 -1px 0 0 rgba(255,255,255,.2);
+}
+.cnrflash-inner:before, .cnrflash-inner:after
+{
+    /*Use the border triangle trick to make         it look like the ribbon wraps round it's        container*/
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: -16px;
+    width: 0;
+    height: 0;
+    border: 8px solid #800000;
+}
+.cnrflash-inner:before
+{
+    left: 1px;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+}
+.cnrflash-inner:after
+{
+    right: 0;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+}
+.cnrflash-label
+{
+    /*Make the label look nice*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    padding-bottom: 5px;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(1,1,1,.8);
+    font-size: 0.95em;
+    font-weight: bold;
+    text-align: center;
+}
+
+ul.tags-wrap li {
+  float: left !important;
+  list-style: none;
+  margin: 5px 5px;
+  font-size:10px;
+  color:#0002A1;
+  margin-left:;
+}
+
+ul.tags-wrap li span.label {
+  white-space:inherit;
+  font-size:100%;
+}
+
+/* .roundedTwo */
+.roundedTwo {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  margin: 20px auto;
+  background: #fcfff4;
+  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+  border-radius: 50px;
+  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+  label {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    cursor: pointer;
+    background: linear-gradient(top, #222 0%, #45484d 100%);
+    border-radius: 50px;
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+    &:after {
+      content: '';
+      width: 9px;
+      height: 5px;
+      position: absolute;
+      top: 5px;
+      left: 4px;
+      border: 3px solid #fcfff4;
+      border-top: none;
+      border-right: none;
+      background: transparent;
+      opacity: 0;
+      transform: rotate(-45deg);
+    }
+    &:hover::after {
+      opacity: 0.3;
+    }
+  }
+  input[type=checkbox] {
+    visibility: hidden;
+    &:checked + label:after {
+      opacity: 1;
+    } 
+  }   
+}
+
+.backend-img-size {
+  height:200px;
+}
+/* end .roundedTwo */
+
+ul.img-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+ 
+ul.img-list li {
+  display: inline-block;
+  height: 150px;
+  margin: 0 1em 1em 0;
+  position: relative;
+}
+
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size:18px;
+  cursor: pointer;
+  display: table;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+ 
+span.text-content span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  display: table;
+  left: 0;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+}
+ 
+ul.img-list li:hover span.text-content {
+  opacity: 1;
+}
+span.text-content {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  display: table;
+  height: 200px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+
+
+.users-list, .mailbox-attachments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.users-list>li {
+  width: 33.33%;
+  float: left;
+  padding: 10px;
+  text-align: center;
+}
+.users-list>li img  {
+  max-width: 100%;
+  height: auto;
+}
+.users-list-name {
+  font-weight: 600;
+  color: #444;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.users-list-date {
+  color: #999;
+  font-size: 12px;
+}
+.users-list-name, .users-list-date {
+  display: block;
+}
+
+.name-box {
+  margin-top: 8px;
+}
+
+.user-panel > .info {
+  font-weight: 600;
+  padding: 18px 5px 5px 30px;
+  font-size: 14px;
+  line-height: 1;
+}
+

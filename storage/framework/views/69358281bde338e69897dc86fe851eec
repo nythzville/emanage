@@ -1,0 +1,194 @@
+<!--	Added by John Eiman Mission
+		July 4, 2016
+ -->
+<?php $birthday_counter = 0;
+?>
+
+<?php $__env->startSection('content'); ?>
+<section class="content-header">
+	<h1>
+		<small><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?></small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="/employee/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+	</ol>
+</section>
+<section class="content clearfix">
+	<div class="col-md-3">
+		<div id="clock" class="box box-primary">
+			&nbsp;
+		</div>
+		<?php foreach($employees as $emp): ?>
+			<?php
+				$birthday_counter ++;
+				if($birthday_counter > 0){
+					break;
+				}
+			?>
+		<?php endforeach; ?>
+		<?php if($birthday_counter > 0): ?>
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Upcoming Birthdays</h3>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<?php foreach($employees as $emp): ?>
+					<li data-toggle="tooltip" title='<?php echo e(date("M d", strtotime($emp->birthdate))); ?>'>
+						<?php if( $emp->photo ): ?>
+						<?php $emp_photo = str_replace('.jpg', '_50.jpg', $emp->photo) ?>
+						<?php $emp_photo = str_replace('.png', '_50.png', $emp_photo) ?>
+						<div class="imgsrc">
+							<img src="/images/employees/profile_photo/<?php echo e($emp_photo); ?>?<?php echo e(rand(0, 500)); ?>" class="img-responsive center-block" />
+						</div>
+						<?php else: ?>
+						<div class="imgsrc">
+							<img src="/images/employees/profile_photo/<?php echo e($emp->gender == 'male' ? 'male-default-photo-50.jpg' : 'female-default-photo-50.jpg'); ?>"  class="img-responsive center-block" />
+						</div>
+						<?php endif; ?>
+						<span><?php echo e($emp->firstname); ?></span>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+		<?php endif; ?>
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Recent Time Ins</h3>
+			</div>
+			<div class="box-body no-padding">
+				<ul class="users-list clearfix">
+					<?php foreach($logins as $recent_time_in): ?>
+					<li data-toggle="tooltip" title='<?php echo e(date("g:i A", strtotime(substr($recent_time_in->login_time,11,14)))); ?>'>
+						<?php if( $recent_time_in->employee->photo ): ?>
+						<?php $emp_photo = str_replace('.jpg', '_50.jpg', $recent_time_in->employee->photo) ?>
+						<?php $emp_photo = str_replace('.png', '_50.png', $emp_photo) ?>
+						<div class="imgsrc">
+							<img src="/images/employees/profile_photo/<?php echo e($emp_photo); ?>?<?php echo e(rand(0, 500)); ?>" class="img-responsive" />
+						</div>
+						<?php else: ?>
+						<div class="imgsrc">
+							<img src="/images/employees/profile_photo/<?php echo e($recent_time_in->employee->gender == 'male' ? 'male-default-photo-50.jpg' : 'female-default-photo-50.jpg'); ?>"  class="img-responsive" />
+						</div>
+						<?php endif; ?>
+						<span><?php echo e($recent_time_in->employee->firstname); ?></span>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+	<div class="col-md-8">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">What's on your mind?</h3>
+			</div>
+			<div class="box-body no-padding">
+				<div class="form-group">
+					<textarea id="body" class="form-control"></textarea>
+				</div>
+				<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>"/>
+				<a href="" class="btn btn-primary" id="submit-post">Post</a>
+			</div>
+		</div>
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">What's Up Today!</h3>
+			</div>
+			<section id="posts">
+				<div id="all-posts">
+					<?php foreach($posts as $post): ?>
+					<div class="post">
+						<?php if( $post->empl->photo ): ?>
+						<?php $emp_photo = str_replace('.jpg', '_50.jpg', $post->empl->photo) ?>
+						<?php $emp_photo = str_replace('.png', '_50.png', $emp_photo) ?>
+						<img class="img-circle dashboardpicture" src="/images/employees/profile_photo/<?php echo e($emp_photo); ?>?<?php echo e(rand(0, 500)); ?>" />
+						<?php else: ?>
+						<img class="img-circle dashboardpicture" src="/images/employees/profile_photo/<?php echo e($post->empl->gender == 'male' ? 'male-default-photo-50.jpg' : 'female-default-photo-50.jpg'); ?>"/>
+						<?php endif; ?>
+						<span class="disable">
+							<strong><?php echo e($post->empl->firstname.' '.$post->empl->lastname); ?></strong>
+						<?php if($post->body == 'logged in' || $post->body == 'is on break' || $post->body == 'ended break' || $post->body == 'logged out'): ?>
+						
+							<?php echo e($post->body); ?> at <?php echo e(date("g:i A", strtotime($post->created_at))); ?>.<br/><br/>
+						</span>
+						<?php else: ?>
+						<br/><?php echo e(date("g:i A", strtotime($post->created_at))); ?></span>
+						<div class="well disable" id="<?php echo e($post->id); ?>">
+							<span class="postbody">
+								<?php if(Auth::user()->id == $post->employee_id): ?>
+								<a href="" class="delete" id="delete<?php echo e($post->id); ?>"><span class="glyphicon glyphicon-trash deletelink" id="<?php echo e($post->id); ?>"></span></a><a href="" class="edit" id="edit<?php echo e($post->id); ?>"><span class="glyphicon glyphicon-edit editlink" id="<?php echo e($post->id); ?>"></span></a>
+								<?php endif; ?>
+								<span id="post<?php echo e($post->id); ?>"><?php echo nl2br(($post->body)); ?></span>
+							</span>
+						</div>
+						<?php endif; ?>
+						<hr/>
+					</div>
+					
+					<?php endforeach; ?>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div id="edit-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Post</h4>
+				</div>
+				<div class="modal-body">
+					<!-- <form> -->
+						<div class="form-group">
+							<label for="post-body"></label>
+							<textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+						</div>
+					<!-- </form> -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="modal-save">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="delete-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Are you sure you want to delete?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="modal-delete">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	// token and createPostUrl are needed to be passed to AJAX method call
+	var token = '<?php echo e(csrf_token()); ?>';
+	var createPostUrl = 'createpost';
+	var editPostUrl = 'editpost';
+	var deletePostUrl = 'deletepost';
+	var postId = 0;
+	function editRecentPost(x){
+		postId = x.id;
+		event.preventDefault();
+		$('#edit-modal').modal();
+		$('body').attr('style', 'overflow: hidden;');
+		$('#post-body').val($('span#post' + x.id).html());
+	}
+	function deleteRecentPost(x){
+		postId = x.id;
+		event.preventDefault();
+		$('#delete-modal').modal();
+	}
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

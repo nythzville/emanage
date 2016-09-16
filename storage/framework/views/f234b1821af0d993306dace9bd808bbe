@@ -1,0 +1,106 @@
+<?php $__env->startSection('content'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/employee/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </li>
+            <li class="active">Work Details</li>
+        </ol>
+    </section>
+
+    <?php if(Session::has('flash_notice')): ?>
+        <div class="info-msg">
+            <div class="alert alert-success">
+                <strong>Succes!</strong> <span class="msg"><?php echo e(Session::get('flash_notice')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if(Session::has('flash_error')): ?>
+        <div class="info-msg" >
+            <div class="alert alert-danger">
+                <strong>Error!</strong> <span class="msg"><?php echo e(Session::get('flash_error')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <section class="content clearfix">
+
+    	<?php echo $__env->make('includes.dashboard.employee.manage-employee-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    	
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Work Details</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group  col-md-6">
+                            <label>Start Date:</label>
+                            <input type="text" disabled class="form-control" name="start_date" value="<?php echo e(date('m/d/Y', strtotime($emp->start_date) )); ?>" placeholder="MM/DD/YYYY" >
+                        </div>
+
+                        <div class="form-group  col-md-6">
+                            <label>Status:</label>
+                            <select class="form-control" name="employment_status" disabled>
+                                <option value="employed" <?php echo e($emp->employment_status == 'employed' ? 'selected="selected"': ''); ?> > Employed</option>
+                                <option value="resigned" <?php echo e($emp->employment_status == 'resigned' ? 'selected="selected"': ''); ?> >Resigned</option>
+                                <option value="AWOL" <?php echo e($emp->employment_status == 'AWOL' ? 'selected="selected"': ''); ?> >AWOL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group  col-md-6">
+                            <label>Job Title:</label>
+                            <input type="text" disabled class="form-control" name="job_title" value="<?php echo e($emp->job_title); ?>" placeholder="Programmer" >
+                        </div>
+
+                        <div class="form-group  col-md-6">
+                            <label>Department:</label>
+                            <select class="form-control" name="department_id" disabled>
+                                <?php foreach($departments as $department): ?>
+                                    <option value="<?php echo e($department->id); ?>" <?php echo e($emp->department_id == $department->id ? 'selected="selected"': ''); ?>><?php echo e($department->name); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label>Employment Type:</label>
+                            <select class="form-control" name="employment_type" disabled>
+                                <option value="fulltime" <?php echo e($emp->employment_type == 'fulltime' ? 'selected="selected"': ''); ?>>Full Time</option>
+                                <option value="parttime" <?php echo e($emp->employment_type == 'parttime' ? 'selected="selected"': ''); ?>>Part Time</option>
+                                <option value="contractual" <?php echo e($emp->employment_type == 'contractual' ? 'selected="selected"': ''); ?>>Contractual</option>
+                                <option value="others" <?php echo e($emp->employment_type == 'others' ? 'selected="selected"': ''); ?>>Others</option>
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Description:</label>
+                        <textarea class="form-control" style="min-height: 200px" name="job_description" disabled><?php echo e($emp->job_description); ?></textarea>
+                    </div>
+
+                </div>
+
+                <div class="clearfix clear"></div>
+
+                <div class="info-msg" style="display: none">
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> <span class="msg"></span>
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> <span class="msg"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+    </section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

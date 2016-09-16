@@ -1,0 +1,79 @@
+<?php $__env->startSection('content'); ?>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/employee/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><?php echo e(ucwords($emp->firstname.' '.$emp->lastname)); ?> </li>
+            <li class="active">Account Details</li>
+        </ol>
+    </section>
+
+    <?php if(Session::has('flash_notice')): ?>
+        <div class="info-msg">
+            <div class="alert alert-success">
+                <strong>Succes!</strong> <span class="msg"><?php echo e(Session::get('flash_notice')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if(Session::has('flash_error')): ?>
+        <div class="info-msg" >
+            <div class="alert alert-danger">
+                <strong>Error!</strong> <span class="msg"><?php echo e(Session::get('flash_error')); ?></span>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
+    <section class="content clearfix">
+
+    	<?php echo $__env->make('includes.dashboard.employee.manage-employee-menu', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    	
+        <div class="col-md-9">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Acount Details</h3>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label>Email:</label>
+                            <input disabled type="text" class="form-control" name="email" value="<?php echo e($emp->email); ?>">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Account Type:</label>
+                            <select class="form-control" name="account_type" disabled>
+                                <option value="normal" <?php echo e($emp->account_type == 'normal' ? 'selected="selected"': ''); ?>>Employee</option>
+                                <option value="admin" <?php echo e($emp->account_type == 'admin" {' ? 'selected="selected"': ''); ?>>Admin</option>
+                                <option value="hr" <?php echo e($emp->account_type == 'hr' ? 'selected="selected"': ''); ?>>Hr</option>
+                                <option value="owner" <?php echo e($emp->account_type == 'owner' ? 'selected="selected"': ''); ?>>Owner</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label>ID No.:</label>
+                            <input disabled type="text" class="form-control" value="<?php echo e($emp->identification); ?>">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix clear"></div>
+
+                <div class="info-msg" style="display: none">
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong> <span class="msg"></span>
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> <span class="msg"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.dashboard', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
